@@ -1,284 +1,136 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import operacoes.*;
+import servicos.*;
 /**
  * @author Luiz Eduardo de Jesus
  */
 public class Calculadora 
 {
-    static Scanner ler = new Scanner(System.in);
+    
     public static void main(String[] args) 
     {
-        int opcao = 0;
-        do
+        boolean validacao = false;
+        do// loop infinito até a condição ser satisfeita.
         {
-
-
-        }while(opcao != 0);
-    }
-    /**
-     * 
-     * @return retorna um inteiro depois de validar e tratar exceções
-     */
-    public static int lerNumeroInteiro()
-    {
-        int inteiroValidado =0;
-        boolean validação = false;
-        while (!validação) {
-            try
+            int inteiroReal =0;
+            do 
             {
-                inteiroValidado = ler.nextInt();
-                validação = true;
-            } catch(InputMismatchException e)
+                
+                System.out.println("Seja bem vindo a calculadora");
+                System.out.println("1 - operações com numeros inteiros");
+                System.out.println("2 - operações com numeros reais");
+                System.out.println("3 - sair");
+                inteiroReal = LerInteiro.lerNumeroInteiro();
+                LimparTela.limparTela();
+            }while(inteiroReal < 1 && inteiroReal > 3);
+            switch (inteiroReal) // escolha entre numero inteiro, reais ou sair
+            {
+                case 1://inteiro
+                    int opcao = 0;
+                    do
+                    {
+                        System.out.println("1 - somar");
+                        System.out.println("2 - subtrair");
+                        System.out.println("3 - multiplicar");
+                        System.out.println("4 - dividir");
+                        opcao = LerInteiro.lerNumeroInteiro();
+                        LimparTela.limparTela();
+                    }while (opcao < 1 && opcao > 3);
+
+                    switch (opcao) //operação com numeros inteiros
+                    {
+
+                        case 1://soma
+                            int soma = Somar.soma();
+                            System.out.printf("soma: %d",soma);
+                            Pausar.pause();
+                            LimparTela.limparTela();
+                            break;
+                            //-----
+                        case 2://subtração
+                            int subtracao = Subtrir.subtrai();
+                            System.out.printf("Resto: %d",subtracao);
+                            Pausar.pause();
+                            LimparTela.limparTela();
+                            break;
+                        //--------
+                        case 3://multiplicação
+                        int multiplicacao = Multiplicar.multiplica();
+                        System.out.printf("produto: %d",multiplicacao);
+                        Pausar.pause();
+                        LimparTela.limparTela();
+                            break;
+                        //--------
+                        case 4://divisão
+                        int divisao = Dividir.divide();
+                        System.out.printf("produto: %d",divisao);
+                        Pausar.pause();
+                        LimparTela.limparTela();
+                            break;
+                        default://erro
+                        System.out.println("Escolha uma opção válida");
+                        Pausar.pause();
+                        LimparTela.limparTela();
+                            break;
+                    }
+                    break;
+                case 2://real
+                int opcao2 = 0;
+                do
                 {
-                    System.out.println("Entrada inválida. Por favor, digite um número inteiro válido.");//saída da exceção.
-                    ler.next(); // Descartar entrada inválida
+                    System.out.println("1 - somar");
+                    System.out.println("2 - subtrair");
+                    System.out.println("3 - multiplicar");
+                    System.out.println("4 - dividir");
+                    opcao2 = LerInteiro.lerNumeroInteiro();
+                    LimparTela.limparTela();
+                }while (opcao2 <1 && opcao2 >4);
 
+                switch (opcao2) //operação com numeros inteiros
+                {
+                    case 1://soma
+                        double soma2 = Somar.soma2();
+                        System.out.printf("soma: %.2f",soma2);
+                        Pausar.pause();
+                        LimparTela.limparTela();
+                        break;
+                        //-----
+                    case 2://subtração
+                        double subtracao = Subtrir.subtrai2();
+                        System.out.printf("resto: %.2f",subtracao);
+                        Pausar.pause();
+                        LimparTela.limparTela();
+                        break;
+                    //--------
+                    case 3://multiplicação
+                    double multiplicacao = Multiplicar.multiplica2();
+                    System.out.printf("Produto: %.2f",multiplicacao);
+                    Pausar.pause();
+                    LimparTela.limparTela();
+                        break;
+                    //--------
+                    case 4://divisão
+                    double divisao = Dividir.divide2();
+                    System.out.printf("produto: %.2f",divisao);
+                    Pausar.pause();
+                    LimparTela.limparTela();
+                        break;
+                    default://erro
+                    System.out.println("Escolha uma opção válida");
+                        break;
                 }
-            finally
-            {
-                ler.nextLine();//limpar buffer de entrada
+                    break;
+                case 3://sair
+                                System.out.println("Grato por nos escolher, até a proxima.");
+                                validacao = true;
+                            break;
+                default://----Erro
+                    System.out.println("Opção invalida, por favor escolha uma opção válida.");
+                    Pausar.pause();
+                    LimparTela.limparTela();
+                    break;
             }
-        }
-        return inteiroValidado;
-    } 
-    /**
-     * @Luiz-EUARDO1987
-     * @see . ler numero double.
-     */
-    public static double lerNumeroReal()
-    {
-        double realValidado = 0;
-        boolean validação = false;
-        while (!validação) 
-        {
-            try
-            {
-                realValidado = ler.nextDouble();
-                validação = true;
-            }catch(Exception e)
-            {
-                System.out.println("Entrada inválida. Por favor, digite um número real válido");
-                ler.next(); // Descartar entrada inválida
-            }
-            finally
-            {
-                ler.nextLine(); //limpar buffer de entrada
-            }
-        }
-        return realValidado;
-    }
-     /**
-     * @see limparTela limpar a tela do terminal.
-     * @return void
-     * @Luiz-EUARDO1987
-     */
-    public static void limparTela()
-    {
-        try 
-        {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-            }
-        } catch (Exception e) 
-        {
-            e.printStackTrace();
-        }
-    }
-    /**
-     * @Luiz-EUARDO1987
-     * @see . Pause para ler o programa.
-     */
-    public static void pause()
-    {
-        try
-        {
-            Thread.sleep(5000);
-        } catch(Exception e)
-        {
-            System.out.println("Erro ao pausar o programa.");
-        }
-    }
-    /**
-     * @Luiz-EUARDO1987
-     * @see . soma dois numero inteiros
-     */
-    public static int soma()
-    {
-        int soma = 0;
-        int numero1 =0, numero2 = 0;
-        System.out.println("Digite o primeiro numero ?");
-        numero1 = lerNumeroInteiro();
-        limparTela();
-        System.out.println("Digite o segundo numero");
-        numero2 = lerNumeroInteiro();
-        limparTela();
-        soma = numero1 + numero2;
-        return soma;
-    }
-      /**
-     * @Luiz-EUARDO1987
-     * @see . soma dois números reais. 
-     */
-    public static double soma2()
-    {
-        double soma = 0;
-        double numero1 =0, numero2 = 0;
-        System.out.println("Digite o primeiro numero");
-        numero1 = lerNumeroInteiro();
-        limparTela();
-        System.out.println("Digite o segundo numero");
-        numero2 = lerNumeroInteiro();
-        limparTela();
-        soma = numero1 + numero2;
-        return soma;
-    }
-    /**
-     * @Luiz-EUARDO1987
-     * @see . subtrai dois números inteiros
-    */ 
-    public static int subtrai()
-    {
-        int resto = 0;
-        int numero1 =0, numero2 = 0;
-        System.out.println("Digite o primeiro numero");
-        numero1 = lerNumeroInteiro();
-        limparTela();
-        System.out.println("Digite o segundo numero");
-        numero2 = lerNumeroInteiro();
-        limparTela();
-        resto = numero1 - numero2;
-        return resto;
-    }
-     /**
-     * @Luiz-EUARDO1987
-     * @see . subtrai2 dois números reais
-    */ 
-    public static double subtrai2()
-    {
-        double resto = 0;
-        double numero1 =0, numero2 = 0;
-        System.out.println("Digite o primeiro numero");
-        numero1 = lerNumeroInteiro();
-        limparTela();
-        System.out.println("Digite o segundo numero");
-        numero2 = lerNumeroInteiro();
-        limparTela();
-        resto = numero1 - numero2;
-        return resto;
-    }
-    /**
-     * @Luiz-EUARDO1987
-     * @see . multiplica dois numero inteiros diferentes de zero
-    */
-    public static int multiplica()
-    {
-        int produto = 0;
-        int numero1 =0, numero2 = 0;
-        boolean validação = false;
-        while(!validação)
-        {
-        System.out.println("Digite o primeiro numero");
-        numero1 = lerNumeroInteiro();
-        limparTela();
-        System.out.println("Digite o segundo numero");
-        numero2 = lerNumeroInteiro();
-        limparTela();
-        if(numero1 != 0 && numero2 !=0)
-        {
-            produto = numero1 * numero2;
-            validação = true;
-        }else
-        {
-            System.out.println("Os números devem ser diferentes de zero");
-        }
-        }
-        return produto;
-    }
-    /**
-     * @Luiz-EUARDO1987
-     * @see . multiplica dois numero reais diferentes de zero
-    */
-    public static double multiplica2()
-    {
-        double produto = 0;
-        double numero1 =0, numero2 = 0;
-        boolean validação = false;
-        while(!validação)
-        {
-        System.out.println("Digite o primeiro numero");
-        numero1 = lerNumeroInteiro();
-        limparTela();
-        System.out.println("Digite o segundo numero");
-        numero2 = lerNumeroInteiro();
-        limparTela();
-        if(numero1 != 0 && numero2 !=0)
-        {
-            produto = numero1 * numero2;
-            validação = true;
-        }else
-        {
-            System.out.println("Os números devem ser diferentes de zero");
-        }
-        }
-        return produto;
-    }
-    /**
-     * @Luiz-EUARDO1987
-     * @see . faz uma divisão entre dois números inteiros
-     */
-    public static int divide(){
-        int dividendo = 0, divisor = 0;
-        int resultado = 0;
-        boolean validação = false;
-        while(!validação)
-        {
-            System.out.println("Digite o dividendo");
-            dividendo = lerNumeroInteiro();
-            limparTela();
-            System.out.println("Digite o divisor");
-            divisor = lerNumeroInteiro();
-            limparTela();
-            if(divisor != 0)
-            {
-                resultado = dividendo / divisor;
-                validação = true;
-            }else
-            {
-                System.out.println("O divisor deve ser diferente de zero");
-            }
-        }
-        return resultado;
-    }
 
-    /**
-    * @Luiz-EUARDO1987
-    * @see . faz uma divisão entre dois números reais
-    */
-    public static double divide2()
-    {
-        double dividendo = 0, divisor = 0;
-        double resultado = 0;
-        boolean validação = false;
-        while(!validação)
-        {
-            System.out.println("Digite o dividendo");
-            dividendo = lerNumeroInteiro();
-            limparTela();
-            System.out.println("Digite o divisor");
-            divisor = lerNumeroInteiro();
-            limparTela();
-            if(divisor != 0)
-            {
-                resultado = dividendo / divisor;
-                validação = true;
-            }else
-            {
-                System.out.println("O divisor deve ser diferente de zero");
-            }
-        }
-        return resultado;
+        }while(!validacao);
     }
+   
 }
